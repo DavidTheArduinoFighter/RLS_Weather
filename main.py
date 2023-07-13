@@ -1,8 +1,6 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
+import sys
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
+import GUI
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -14,8 +12,18 @@ def check_sum(num1, num2):
     return num1 + num2
 
 
+class Window(QMainWindow, GUI):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.connectSignalsSlots()
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    app = QApplication(sys.argv)
+    win = Window()
+    win.show()
+    sys.exit(app.exec())
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
