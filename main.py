@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
-import GUI
+from GUI import Ui_MainWindow
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -12,18 +12,18 @@ def check_sum(num1, num2):
     return num1 + num2
 
 
-class Window(QMainWindow, GUI):
+class Window(QMainWindow):
     def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-        self.connectSignalsSlots()
+        super().__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.show()
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    win = Window()
-    win.show()
-    sys.exit(app.exec())
-
+    w = Window()
+    w.show()
+    sys.exit(app.exec_())
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
