@@ -3,7 +3,7 @@ on: [push]
 jobs:
   build:
   name: Hello world
-  runs-on: windows10-latest
+  runs-on: ubuntu-latest
   steps:
   - uses: actions/checkout@v2
   - name: Write a multi-line message
