@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
 from GUI import Ui_MainWindow
+import PythonUiHandler as UI
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -21,10 +22,15 @@ class Window(QMainWindow):
         self.show()
 
 
-# Press the green button in the gutter to run the script.
+class MainApp:
+    def __init__(self):
+        gui_ui = "GUI.ui"
+        UI.ShowApp(gui_ui)
+
+
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    w = Window()
-    w.show()
-    sys.exit(app.exec_())
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    run = MainApp()
+    # app = QApplication(sys.argv)
+    # w = Window()
+    # w.show()
+    # sys.exit(app.exec_())
