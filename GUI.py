@@ -161,7 +161,7 @@ class Ui_MainWindow(object):
         self.comboBox_select_location.setItemText(0, _translate("MainWindow", "-- select location --"))
         self.label_title.setText(_translate("MainWindow", "Officially weather data from ARSO"))
         self.label_temperature.setText(_translate("MainWindow", "Temperature: "))
-        self.label_temperature_value.setText(_translate("MainWindow", "-"))
+        self.label_temperature_value.setText(_translate("MainWindow", "31"))
         self.label_temperature_C.setText(_translate("MainWindow", "°C"))
         self.label_humidity.setText(_translate("MainWindow", "Humidity"))
         self.label_humidity_value.setText(_translate("MainWindow", "-"))

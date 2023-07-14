@@ -17,6 +17,7 @@ class Window(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.retranslateUi(self)
         self.show()
 
 
