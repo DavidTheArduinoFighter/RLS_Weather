@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>586</width>
-    <height>285</height>
+    <width>584</width>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,7 @@
      <rect>
       <x>41</x>
       <y>75</y>
-      <width>501</width>
+      <width>531</width>
       <height>22</height>
      </rect>
     </property>
@@ -117,7 +117,7 @@
      <rect>
       <x>40</x>
       <y>40</y>
-      <width>501</width>
+      <width>531</width>
       <height>30</height>
      </rect>
     </property>
@@ -225,7 +225,7 @@
      <rect>
       <x>220</x>
       <y>100</y>
-      <width>161</width>
+      <width>191</width>
       <height>61</height>
      </rect>
     </property>
@@ -234,7 +234,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>141</width>
+       <width>171</width>
        <height>41</height>
       </rect>
      </property>
@@ -247,7 +247,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Wind:</string>
+         <string>Rainfall sum:</string>
         </property>
        </widget>
       </item>
@@ -271,7 +271,7 @@
          </font>
         </property>
         <property name="text">
-         <string>m/s</string>
+         <string>mm</string>
         </property>
        </widget>
       </item>
@@ -281,7 +281,7 @@
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>410</x>
       <y>100</y>
       <width>161</width>
       <height>61</height>
@@ -342,7 +342,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>586</width>
+     <width>584</width>
      <height>21</height>
     </rect>
    </property>
