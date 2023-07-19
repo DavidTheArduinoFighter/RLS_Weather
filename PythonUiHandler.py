@@ -1,33 +1,36 @@
 import sys
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication
-from PySide6.QtCore import QFile, QIODevice
+from PyQt5.QtWidgets import  QMainWindow, QApplication, QPushButton, QTextEdit, QLabel
+from PyQt5 import uic
 
 
-class ShowApp:
-    def __init__(self, ui_file_name):
-        self.app = QApplication(sys.argv)
-        self.ui_file = QFile(ui_file_name)
-        self.ui_file_name = ui_file_name
-        self.open()
-        self.run()
+class ShowApp(QMainWindow):
+    def __init__(self, gui_ui):
+        super(ShowApp, self).__init__()
+        uic.loadUi(gui_ui, self)
 
-    def open(self):
-        if not self.ui_file.open(QIODevice.ReadOnly):
-            print(f"Cannot open {self.ui_file_name}: {self.ui_file.errorString()}")
-            sys.exit(-1)
+        self.show()
 
-    def run(self):
-        loader = QUiLoader()
-        window = loader.load(self.ui_file)
-        self.ui_file.close()
-        if not window:
-            print(loader.errorString())
-            sys.exit(-1)
-        window.show()
-        sys.exit(self.app.exec())
+    def show_temp(self, value):
+        label = self.findChild(QLabel, 'label_temperature_value')
+        QLabel.setText(label, value)
+
+    def show_wind(self, value):
+        label = self.findChild(QLabel, 'label_wind_value')
+        QLabel.setText(label, value)
+
+    def show_humidity(self, value):
+        label = self.findChild(QLabel, 'label_humidity_value')
+        QLabel.setText(label, value)
 
 
 if __name__ == "__main__":
     ui = "GUI.ui"
-    App = ShowApp(ui)
+    # App = ShowAppPiside(ui)
+
+    app = QApplication(sys.argv)
+    UIWindow = ShowApp(ui)
+    UIWindow.show_temp("32")
+    UIWindow.show_wind("40")
+    UIWindow.show_humidity("78")
+    app.exec()
+

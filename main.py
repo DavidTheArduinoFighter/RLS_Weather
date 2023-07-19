@@ -23,13 +23,17 @@ class Window(QMainWindow):
 
 
 class MainApp:
-    def __init__(self):
-        gui_ui = "GUI.ui"
-        UI.ShowApp(gui_ui)
+    def __init__(self, gui_ui):
+        app = QApplication(sys.argv)
+        window = UI.ShowApp(gui_ui)
+        window.show_temp("32")
+        window.show_wind("40")
+        window.show_humidity("78")
+        app.exec()
 
 
 if __name__ == '__main__':
-    run = MainApp()
+    run = MainApp("GUI.ui")
     # app = QApplication(sys.argv)
     # w = Window()
     # w.show()
