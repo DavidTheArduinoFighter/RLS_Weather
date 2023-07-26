@@ -42,15 +42,56 @@ class MainApp:
                 # find first showing temp
                 else:
                     self.window.show_temp(f"{value[1]}")
+                    self.window.show_date(f"{value[0]}")
                     break
             # if date is selected
             elif data == value[0]:
                 self.window.show_date(date)
                 if value[1] is None:
                     self.window.show_temp("No data")
+                    self.window.show_date(f"{value[0]}")
                     break
                 else:
                     self.window.show_temp(f"{value[1]}")
+                    self.window.show_date(f"{value[0]}")
+                    break
+
+        for value in hum:
+            # if date is not selected
+            if date is None:
+                if value[1] is None:
+                    pass
+                # find first showing humidity
+                else:
+                    self.window.show_humidity(f"{value[1]}")
+                    break
+            # if date is selected
+            elif data == value[0]:
+                self.window.show_humidity(date)
+                if value[1] is None:
+                    self.window.show_humidity("No data")
+                    break
+                else:
+                    self.window.show_humidity(f"{value[1]}")
+                    break
+
+        for value in rain:
+            # if date is not selected
+            if date is None:
+                if value[1] is None:
+                    pass
+                # find first showing rainfall sum
+                else:
+                    self.window.show_rainfall_sum(f"{value[1]}")
+                    break
+            # if date is selected
+            elif data == value[0]:
+                self.window.show_rainfall_sum(date)
+                if value[1] is None:
+                    self.window.show_rainfall_sum("No data")
+                    break
+                else:
+                    self.window.show_rainfall_sum(f"{value[1]}")
                     break
 
     def execute(self):
