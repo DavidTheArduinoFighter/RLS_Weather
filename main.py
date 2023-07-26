@@ -1,8 +1,10 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
-from PyQt5.QtCore import QRunnable, QThreadPool, pyqtSlot
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt5.QtCore import QRunnable, QThreadPool, pyqtSlot, pyqtSignal, QObject
 from GUI import Ui_MainWindow
 import PythonUiHandler as UI
+
+import traceback, sys
 
 import Get_Data
 
@@ -20,11 +22,12 @@ class MainApp:
     def __init__(self, gui_ui):
         app = QApplication(sys.argv)
         self.window = UI.ShowApp(gui_ui)
-        # self.window.show_temp("32")
-        # self.window.show_wind("40")
-        # self.window.show_humidity("78")
-        # self.window.show_date("78")
-        self.execute()
+
+        refresh_button = self.window.findChild(QPushButton, 'pushButton_refresh')
+        QPushButton.pressed(refresh_button).connect(self.execute())
+        # refresh_button.pressed.connect(self.execute())
+
+        self.window.show()
         self.threadpool = QThreadPool()
         app.exec()
 
@@ -98,6 +101,8 @@ class MainApp:
         url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
         worker = Worker(self.refresh(url))
 
+        self.threadpool.start(worker)
+
 
 class Worker(QRunnable):
     def __init__(self, fn, *args, **kwargs):
@@ -117,6 +122,11 @@ class Worker(QRunnable):
         Initialise the runner function with passed args, kwargs.
         '''
         self.fn(*self.args, **self.kwargs)
+
+
+class WorkerSignals(QObject):
+    result = pyqtSignal(object)
+
 
 if __name__ == '__main__':
     run = MainApp("GUI.ui")

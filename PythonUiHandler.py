@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import  QMainWindow, QApplication, QPushButton, QTextEdit, QLabel
+from PyQt5.QtWidgets import  QMainWindow, QApplication, QLabel
 from PyQt5 import uic
 
 
@@ -8,7 +8,7 @@ class ShowApp(QMainWindow):
         super(ShowApp, self).__init__()
         uic.loadUi(gui_ui, self)
 
-        self.show()
+        # self.show()
 
     def show_temp(self, value):
         label = self.findChild(QLabel, 'label_temperature_value')
