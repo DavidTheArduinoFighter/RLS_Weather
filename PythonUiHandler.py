@@ -22,6 +22,10 @@ class ShowApp(QMainWindow):
         label = self.findChild(QLabel, 'label_humidity_value')
         QLabel.setText(label, value)
 
+    def show_date(self, value):
+        label = self.findChild(QLabel, 'label_date_value')
+        QLabel.setText(label, value)
+
 
 if __name__ == "__main__":
     ui = "GUI.ui"
