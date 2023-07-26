@@ -8,7 +8,7 @@ def test_temp():
     for value in data.temperature():
         if value[1] is None:
             pass
-        elif -50 < float(value[1]) < 65:
+        elif -50 < value[1] < 65:
             pass
         else:
             print(f'\n\nTemperature value is: {value[1]}')
@@ -20,7 +20,7 @@ def test_rainfall_sum():
     for value in data.rainfall_sum():
         if value[1] is None:
             pass
-        elif 0 <= float(value[1]) < 300:
+        elif 0 <= value[1] < 300:
             pass
         else:
             print(f'\n\nRainfall value is: {value[1]}')
@@ -32,7 +32,7 @@ def test_humidity():
     for value in data.humidity():
         if value[1] is None:
             pass
-        elif 0 < float(value[1]) < 100:
+        elif 0 < value[1] < 100:
             pass
         else:
             print(f'\n\nHumidity value is: {value[1]}')

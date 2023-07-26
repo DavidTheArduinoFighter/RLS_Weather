@@ -20,7 +20,7 @@ class Data:
             if value is None:
                 sub_output.append(None)
             else:
-                sub_output.append(value.text)
+                sub_output.append(float(value.text))
             output.append(sub_output)
 
         return output
@@ -38,7 +38,7 @@ class Data:
             if value is None:
                 sub_output.append(None)
             else:
-                sub_output.append(value.text)
+                sub_output.append(float(value.text))
             output.append(sub_output)
 
         return output
@@ -56,7 +56,7 @@ class Data:
             if value is None:
                 sub_output.append(None)
             else:
-                sub_output.append(value.text)
+                sub_output.append(float(value.text))
             output.append(sub_output)
 
         return output
