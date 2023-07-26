@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QMessageBox
+from PyQt5.QtCore import QRunnable, QThreadPool, pyqtSlot
 from GUI import Ui_MainWindow
 import PythonUiHandler as UI
 
@@ -23,6 +24,8 @@ class MainApp:
         # self.window.show_wind("40")
         # self.window.show_humidity("78")
         # self.window.show_date("78")
+        self.execute()
+        self.threadpool = QThreadPool()
         app.exec()
 
     def refresh(self, url, date=None):
@@ -50,9 +53,32 @@ class MainApp:
                     self.window.show_temp(f"{value[1]}")
                     break
 
+    def execute(self):
+        url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
+        worker = Worker(self.refresh(url))
+
+
+class Worker(QRunnable):
+    def __init__(self, fn, *args, **kwargs):
+        super(Worker, self).__init__()
+        # Store constructor arguments (re-used for processing)
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+        # self.signals = WorkerSignals()
+
+        # Add the callback to our kwargs
+        # self.kwargs['progress_callback'] = self.signals.progress
+
+    @pyqtSlot()
+    def run(self):
+        '''
+        Initialise the runner function with passed args, kwargs.
+        '''
+        self.fn(*self.args, **self.kwargs)
 
 if __name__ == '__main__':
     run = MainApp("GUI.ui")
-    test_url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
-    run.refresh(test_url)
+    # test_url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
+    # run.refresh(test_url)
 
