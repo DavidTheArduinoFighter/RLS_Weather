@@ -1,26 +1,40 @@
 from Get_Data import Data
 
 url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
+data = Data(url)
+
 
 def test_temp():
-    data = Data(url)
-    if -50 < data.temperature() < 65:
-        assert True
-    else:
-        assert False
+    for value in data.temperature():
+        if value[1] is None:
+            pass
+        elif -50 < float(value[1]) < 65:
+            pass
+        else:
+            print(f'\n\nTemperature value is: {value[1]}')
+            assert False
+    assert True
 
 
 def test_rainfall_sum():
-    data = Data(url)
-    if 0 <= data.rainfall_sum() < 300:
-        assert True
-    else:
-        assert False
+    for value in data.rainfall_sum():
+        if value[1] is None:
+            pass
+        elif 0 <= float(value[1]) < 300:
+            pass
+        else:
+            print(f'\n\nRainfall value is: {value[1]}')
+            assert False
+    assert True
 
 
 def test_humidity():
-    data = Data(url)
-    if 0 <= data.humidity() <= 100:
-        assert True
-    else:
-        assert False
+    for value in data.humidity():
+        if value[1] is None:
+            pass
+        elif 0 < float(value[1]) < 100:
+            pass
+        else:
+            print(f'\n\nHumidity value is: {value[1]}')
+            assert False
+    assert True
