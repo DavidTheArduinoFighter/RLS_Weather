@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>606</width>
-    <height>366</height>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -76,19 +76,6 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_select_location">
      <item>
-      <spacer name="horizontalSpacer_select_location_L">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
       <widget class="QComboBox" name="comboBox_select_location">
        <item>
         <property name="text">
@@ -98,17 +85,28 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_select_location_D">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QComboBox" name="comboBox_time">
+       <property name="enabled">
+        <bool>true</bool>
        </property>
-       <property name="sizeHint" stdset="0">
+       <property name="minimumSize">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>69</width>
+         <height>0</height>
         </size>
        </property>
-      </spacer>
+       <property name="currentText">
+        <string>--select time--</string>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>--select time--</string>
+        </property>
+       </item>
+      </widget>
      </item>
     </layout>
    </widget>

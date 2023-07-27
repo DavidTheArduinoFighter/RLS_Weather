@@ -32,6 +32,8 @@ class MainApp:
         self.locations_combobox = self.window.findChild(QComboBox, 'comboBox_select_location')
         self.locations_combobox.addItems(locations[0])
 
+        self.time_combobox = self.window.findChild(QComboBox, 'comboBox_time')
+
         self.refresh_button = self.window.findChild(QPushButton, 'pushButton_refresh')
         self.refresh_button.pressed.connect(self.start_worker_1)
 
@@ -45,47 +47,51 @@ class MainApp:
         # self.refresh_button.setEnabled(False)
 
     def refresh(self, url):
-        # could use for finding old values
-        date = None
-
         url_test = 'http://agromet.mkgp.gov.si/APP2/sl/Home/Index?id=2&archive=0&graphs=1'
         web_data = Get_Data.Locations(url_test)
         locations = web_data.locations()
 
         location = self.locations_combobox.currentText()
 
+        if location == '-- select location --':
+            self.window.show_time(f"Please select location!")
+            return None
+
         url = 'http://agromet.mkgp.gov.si' + locations[1][locations[0].index(location)]
 
         data = Get_Data.Data(url)
         temp = data.temperature()
+        date_list = [item[0] for item in temp]
+        self.time_combobox.addItems(date_list)
+        time = self.time_combobox.currentText()
         hum = data.humidity()
         rain = data.rainfall_sum()
 
         for value in temp:
             # if date is not selected
-            if date is None:
+            if time == '--select time--':
                 if value[1] is None:
                     pass
                 # find first showing temp
                 else:
                     self.window.show_temp(f"{value[1]}")
-                    self.window.show_date(f"{value[0]}")
+                    self.window.show_time(f"{value[0]}")
                     break
             # if date is selected
-            elif data == value[0]:
-                self.window.show_date(date)
+            elif time == value[0]:
+                self.window.show_time(time)
                 if value[1] is None:
                     self.window.show_temp("No data")
-                    self.window.show_date(f"{value[0]}")
+                    self.window.show_time(f"{value[0]}")
                     break
                 else:
                     self.window.show_temp(f"{value[1]}")
-                    self.window.show_date(f"{value[0]}")
+                    self.window.show_time(f"{value[0]}")
                     break
 
         for value in hum:
             # if date is not selected
-            if date is None:
+            if time == '--select time--':
                 if value[1] is None:
                     pass
                 # find first showing humidity
@@ -93,8 +99,8 @@ class MainApp:
                     self.window.show_humidity(f"{value[1]}")
                     break
             # if date is selected
-            elif data == value[0]:
-                self.window.show_humidity(date)
+            elif time == value[0]:
+                self.window.show_humidity(time)
                 if value[1] is None:
                     self.window.show_humidity("No data")
                     break
@@ -104,7 +110,7 @@ class MainApp:
 
         for value in rain:
             # if date is not selected
-            if date is None:
+            if time == '--select time--':
                 if value[1] is None:
                     pass
                 # find first showing rainfall sum
@@ -112,8 +118,8 @@ class MainApp:
                     self.window.show_rainfall_sum(f"{value[1]}")
                     break
             # if date is selected
-            elif data == value[0]:
-                self.window.show_rainfall_sum(date)
+            elif time == value[0]:
+                self.window.show_rainfall_sum(time)
                 if value[1] is None:
                     self.window.show_rainfall_sum("No data")
                     break
@@ -131,7 +137,7 @@ class ThreadClass(QtCore.QThread):
         self.is_running = True
 
     def run(self):
-        print('Starting thread...', self.index)
+        # print('Starting thread...', self.index)
         url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
         self.any_signal.emit(url)
 
