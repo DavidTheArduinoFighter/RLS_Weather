@@ -5,7 +5,8 @@ from PyQt5 import uic
 
 class ShowApp(QMainWindow):
     def __init__(self, gui_ui):
-        super(ShowApp, self).__init__()
+        QMainWindow.__init__(self)
+        # super(ShowApp, self).__init__()
         uic.loadUi(gui_ui, self)
 
         # self.show()

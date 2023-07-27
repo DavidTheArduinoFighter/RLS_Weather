@@ -1,10 +1,10 @@
-import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
-from PyQt5.QtCore import QRunnable, QThreadPool, pyqtSlot, pyqtSignal, QObject
+# from PyQt5 import QtWidgets
+from PyQt5 import QtCore
 from GUI import Ui_MainWindow
 import PythonUiHandler as UI
 
-import traceback, sys
+import sys
 
 import Get_Data
 
@@ -20,16 +20,21 @@ class Window(QMainWindow):
 
 class MainApp:
     def __init__(self, gui_ui):
-        app = QApplication(sys.argv)
+
         self.window = UI.ShowApp(gui_ui)
 
-        refresh_button = self.window.findChild(QPushButton, 'pushButton_refresh')
-        QPushButton.pressed(refresh_button).connect(self.execute())
-        # refresh_button.pressed.connect(self.execute())
+        self.thread = {}
+        self.refresh_button = self.window.findChild(QPushButton, 'pushButton_refresh')
+        self.refresh_button.pressed.connect(self.start_worker_1)
 
         self.window.show()
-        self.threadpool = QThreadPool()
         app.exec()
+
+    def start_worker_1(self):
+        self.thread[1] = ThreadClass(parent=None, index=1)
+        self.thread[1].start()
+        self.thread[1].any_signal.connect(self.refresh)
+        # self.refresh_button.setEnabled(False)
 
     def refresh(self, url, date=None):
         data = Get_Data.Data(url)
@@ -97,39 +102,28 @@ class MainApp:
                     self.window.show_rainfall_sum(f"{value[1]}")
                     break
 
-    def execute(self):
-        url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
-        worker = Worker(self.refresh(url))
 
-        self.threadpool.start(worker)
+class ThreadClass(QtCore.QThread):
+    any_signal = QtCore.pyqtSignal(str)
 
+    def __init__(self, parent=None, index=0):
+        super(ThreadClass, self).__init__(parent)
+        self.index = index
+        self.is_running = True
 
-class Worker(QRunnable):
-    def __init__(self, fn, *args, **kwargs):
-        super(Worker, self).__init__()
-        # Store constructor arguments (re-used for processing)
-        self.fn = fn
-        self.args = args
-        self.kwargs = kwargs
-        # self.signals = WorkerSignals()
-
-        # Add the callback to our kwargs
-        # self.kwargs['progress_callback'] = self.signals.progress
-
-    @pyqtSlot()
     def run(self):
-        '''
-        Initialise the runner function with passed args, kwargs.
-        '''
-        self.fn(*self.args, **self.kwargs)
+        print('Starting thread...', self.index)
+        url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
+        self.any_signal.emit(url)
 
-
-class WorkerSignals(QObject):
-    result = pyqtSignal(object)
+    def stop(self):
+        self.is_running = False
+        print('Stopping thread...', self.index)
+        self.terminate()
 
 
 if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    test_url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
     run = MainApp("GUI.ui")
-    # test_url = 'http://agromet.mkgp.gov.si/APP2/AgrometContent/xml/62.xml'
     # run.refresh(test_url)
-
