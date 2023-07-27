@@ -82,7 +82,7 @@ class Locations:
             locations = self.data.xpath(f'//table[@class="tableLocations"]/tr[{i}]/td[1]/a/text()')
             loc_line = self.data.xpath(f'//table[@class="tableLocations"]/tr[{i}]/td[@colspan="11"]/text()')
             if len(loc_line) > 0:
-                locations_valid.append(locations[1:3])
+                locations_valid.extend(locations[1:3])
             else:
                 locations_valid.extend(locations)
 

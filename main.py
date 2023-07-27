@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt5.QtWidgets import QApplication, QMainWindow, QComboBox, QPushButton
 # from PyQt5 import QtWidgets
 from PyQt5 import QtCore
 from GUI import Ui_MainWindow
@@ -24,6 +24,14 @@ class MainApp:
         self.window = UI.ShowApp(gui_ui)
 
         self.thread = {}
+        url_test = 'http://agromet.mkgp.gov.si/APP2/sl/Home/Index?id=2&archive=0&graphs=1'
+        web_data = Get_Data.Locations(url_test)
+        locations = web_data.locations()
+        self.locations_data = locations[1]
+
+        self.locations_combobox = self.window.findChild(QComboBox, 'comboBox_select_location')
+        self.locations_combobox.addItems(locations[0])
+
         self.refresh_button = self.window.findChild(QPushButton, 'pushButton_refresh')
         self.refresh_button.pressed.connect(self.start_worker_1)
 
@@ -36,7 +44,18 @@ class MainApp:
         self.thread[1].any_signal.connect(self.refresh)
         # self.refresh_button.setEnabled(False)
 
-    def refresh(self, url, date=None):
+    def refresh(self, url):
+        # could use for finding old values
+        date = None
+
+        url_test = 'http://agromet.mkgp.gov.si/APP2/sl/Home/Index?id=2&archive=0&graphs=1'
+        web_data = Get_Data.Locations(url_test)
+        locations = web_data.locations()
+
+        location = self.locations_combobox.currentText()
+
+        url = 'http://agromet.mkgp.gov.si' + locations[1][locations[0].index(location)]
+
         data = Get_Data.Data(url)
         temp = data.temperature()
         hum = data.humidity()
