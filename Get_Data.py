@@ -1,9 +1,7 @@
 import xml.etree.ElementTree as ET
 import urllib.request
 import requests
-from lxml import etree, html
-from io import StringIO
-from bs4 import BeautifulSoup
+from lxml import html
 
 
 class Data:

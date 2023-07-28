@@ -1,11 +1,8 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QComboBox, QPushButton
-# from PyQt5 import QtWidgets
 from PyQt5 import QtCore
 from GUI import Ui_MainWindow
 import PythonUiHandler as UI
-
 import sys
-
 import Get_Data
 
 
