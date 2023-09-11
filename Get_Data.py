@@ -1,6 +1,6 @@
+import requests
 import xml.etree.ElementTree as ET
 import urllib.request
-import requests
 from lxml import html
 
 
